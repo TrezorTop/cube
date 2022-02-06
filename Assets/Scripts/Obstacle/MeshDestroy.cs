@@ -9,7 +9,8 @@ public class MeshDestroy : MonoBehaviour
     private Plane edgePlane = new Plane();
 
     public int CutCascades = 1;
-    public float ExplodeForce = 0;
+    public float ExplodeForce = 0f;
+    public float ExplodeForceMultiplier = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,13 @@ public class MeshDestroy : MonoBehaviour
     }
 
 
-    public void DestroyMesh()
+    public void DestroyMesh(float explodeForce)
+    {
+        ExplodeForce *= ExplodeForceMultiplier;
+        _DestroyMesh();
+    }
+
+    private void _DestroyMesh()
     {
         var originalMesh = GetComponent<MeshFilter>().mesh;
         originalMesh.RecalculateBounds();

@@ -10,7 +10,7 @@ namespace Player
             if (!collision.collider.CompareTag("Obstacle")) return;
             
             var target = collision.gameObject.GetComponent<ObstacleHealth>();
-            target.TakeDamage(15);
+            target.TakeDamage(GetComponent<Rigidbody>().velocity.magnitude);
         }
     }
 }

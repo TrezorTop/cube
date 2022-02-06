@@ -4,26 +4,40 @@ namespace Obstacle
 {
     public class ObstacleHealth : MonoBehaviour
     {
-        public float hitPoints = 10f;
+        public float maxHp = 10f;
+        private float _hitPoints;
         private bool _isDead;
+        private float _takenForce;
 
-        public void TakeDamage(int damage)
+        private void Start()
+        {
+            _hitPoints = maxHp;
+        }
+
+        public void TakeDamage(float damage)
         {
             if (_isDead) return;
 
-            hitPoints -= damage;
+            _takenForce = damage;
+
+            _hitPoints -= damage;
             CheckState();
         }
 
         private void CheckState()
         {
-            if (hitPoints < 0 || !_isDead) SetDead();
+            if (_hitPoints <= 0 && !_isDead) SetDead();
         }
 
         private void SetDead()
         {
             _isDead = true;
-            GetComponent<MeshDestroy>().DestroyMesh();
+            GetComponent<MeshDestroy>().DestroyMesh(_takenForce);
+        }
+
+        public float GetHitPoints()
+        {
+            return _hitPoints;
         }
     }
 }
