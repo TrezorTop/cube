@@ -23,9 +23,13 @@ namespace Player
             _isGrounded = isGrounded;
         }
 
+        private void Start()
+        {
+            Cursor.visible = false;
+        }
+
         private void Update()
         {
-            // Debug.Log(rigidbodyRef.velocity.magnitude);
             if (Input.GetButton("Vertical")) AddForce(InputManagerAxis.Vertical);
             if (Input.GetButton("Horizontal")) AddForce(InputManagerAxis.Horizontal);
             if (Input.GetButtonDown("Jump")) ApplyJumpForce();
@@ -44,11 +48,10 @@ namespace Player
 
         private void ApplyJumpForce()
         {
-            if (_isGrounded)
-            {
-                rigidbodyRef.AddForce(0, jumpForce * Time.fixedDeltaTime, 0, jumpForceMode);
-                _isGrounded = false;
-            }
+            if (!_isGrounded) return;
+            
+            rigidbodyRef.AddForce(0, jumpForce * Time.fixedDeltaTime, 0, jumpForceMode);
+            _isGrounded = false;
         }
 
 

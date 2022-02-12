@@ -10,8 +10,6 @@ namespace Obstacle
         {
             var maxHp = GetComponent<ObstacleHealth>().maxHp;
             var hp = GetComponent<ObstacleHealth>().GetHitPoints() <= 0 ? 0 : GetComponent<ObstacleHealth>().GetHitPoints();
-            
-            Debug.Log($"MaterialColor: {hp}");
 
             var lerp = MapValue(hp, 0, maxHp, 0f, 1f);
 
